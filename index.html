@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UChamp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:,wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+<!-- Firebase SDK -->
+<!-- Firebase CDN bundle -->
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+
+<script>
+  // Ініціалізація Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXnfNLFN9Dc1gxCNBMLXXljMzJFESaatM",
+    authDomain: "uchamp-store.firebaseapp.com",
+    projectId: "uchamp-store",
+    storageBucket: "uchamp-store.firebasestorage.app",
+    messagingSenderId: "84944968852",
+    appId: "1:84944968852:web:127ce2963304833250a881",
+    measurementId: "G-M5SN0T0JJH"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  // Авторизація при кліку
+  document.getElementById("profile-icon").addEventListener("click", () => {
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        document.getElementById("user-name").textContent = `Привіт, ${user.displayName}`;
+        document.getElementById("user-name").style.display = "inline-block";
+      })
+      .catch((error) => {
+        console.error("Помилка входу:", error);
+      });
+  });
+
+  // Відстеження стану авторизації
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      document.getElementById("user-name").textContent = `Привіт, ${user.displayName}`;
+      document.getElementById("user-name").style.display = "inline-block";
+    }
+  });
+</script>
+
+<script src="js/script.js"></script>
+</head>
+<body>
+        <div class="header">
+               <div class="catalog-icon" onclick="toggleMenu()">
+  <img src="cat.png" alt="Каталог">
+</div>
+<div class="filter-menu" id="filterMenu">
+  <h3 class="filter-title">ФІЛЬТРУВАТИ ЗА ЦІНОЮ</h3>
+<div class="price-range">
+  <label for="price">Ціна: <span id="priceValue">700</span> ₴ — 
+    <input type="number" id="priceInput" min="200" max="40000" value="40000" style="width: 100px;"> ₴
+  </label>
+  <input type="range" id="price" min="200" max="40000" step="100" value="200" oninput="updatePrice(this.value)">
+</div>
+
+  <h3 class="filter-title">УНЦІЇ РУКАВИЦЬ</h3>
+  <div class="size-options">
+    <label><input type="checkbox"> 10 унцій</label>
+    <label><input type="checkbox"> 12 унцій</label>
+    <label><input type="checkbox"> 14 унцій</label>
+    <label><input type="checkbox"> 16 унцій</label>
+  </div>
+  <h3 class="filter-title">РОЗМІРИ ОДЯГУ</h3>
+  <div class="size-options">
+    <label><input type="checkbox"> XS</label>
+    <label><input type="checkbox"> S</label>
+    <label><input type="checkbox"> M</label>
+    <label><input type="checkbox"> L</label>
+    <label><input type="checkbox"> XL</label>
+  </div>
+  <button class="apply-button" onclick="applyFilter()">Застосувати фільтр</button>
+</div>
+                <div class="search-block">
+  <form id="searchForm">
+
+    <input type="text" id="searchInput" placeholder="Пошук товару...">
+    <button type="submit" class="search-button">
+      <img src="Search.png" alt="Пошук">
+    </button>
+  </form>
+</div>
+                    <div class="logo">
+                <img src="logo.jpg"><span>UChamp</span>
+            </div>
+                    <div class="icons">
+  <a href="like.html" class="icon-link">
+    <img src="Icon.png" alt="Обране">
+    <span class="like-count">0</span>
+  </a>
+  <a href="kor.html" class="icon-link">
+    <img src="Icon-1.png" alt="Кошик">
+    <span class="cart-count">0</span>
+  </a>
+</div>
+
+                    <button onclick="signInWithGoogle()" class="auth-button">
+  <img src="Icon-2.png" alt="Увійти">
+</button>
+                </div>
+                
+                
+        </div>
+       <div class="product-section">
+  <h2 class="section-title">Одяг та аксесуари для боксу</h2>
+  <div class="products">
+
+    <a href="category.html?category=gloves" class="product-item">
+      <img src="gloves.png" alt="Рукавички">
+      <p>Боксерські рукавички</p>
+    </a>
+
+    <a href="category.html?category=bags" class="product-item">
+      <img src="bags.png" alt="Спортивні сумки">
+      <p>Спортивні сумки</p>
+    </a>
+
+    <a href="category.html?category=clothing" class="product-item">
+      <img src="uniform.png" alt="Боксерська форма">
+      <p>Боксерська форма</p>
+    </a>
+
+    <a href="category.html?category=punching-bags" class="product-item">
+      <img src="punching-bag.png" alt="Груша для боксу">
+      <p>Груша для боксу</p>
+    </a>
+
+    <a href="category.html?category=head protection" class="product-item">
+      <img src="helmet.png" alt="Шолом для боксу">
+      <p>Шолом для боксу</p>
+    </a>
+
+    <a href="category.html?category=boxing-bags" class="product-item">
+      <img src="heavy-bag.png" alt="Мішок для боксу">
+      <p>Мішок для боксу</p>
+    </a>
+
+    <a href="category.html?category=boxing bandages" class="product-item">
+      <img src="wraps.png" alt="Боксерський бинт">
+      <p>Боксерські бинти</p>
+    </a>
+
+    <a href="category.html?category=training" class="product-item">
+      <img src="pads.png" alt="Боксерські лапи">
+      <p>Боксерські лапи</p>
+    </a>
+
+    <a href="category.html?category=footwear" class="product-item">
+      <img src="shoes.jpg" alt="Боксерки">
+      <p>Боксерки</p>
+    </a>
+
+    <a href="category.html?category=dental protection" class="product-item">
+      <img src="mouthguards.png" alt="Капи для боксу">
+      <p>Капи для боксу</p>
+    </a>
+
+    <a href="category.html?category=home training" class="product-item">
+      <img src="trainers4.jpg" alt="Тренажери для боксу">
+      <p>Тренажери для боксу</p>
+    </a>
+
+    <a href="category.html?category=skipping rope" class="product-item">
+      <img src="ropes.jpg" alt="Скакалки">
+      <p>Скакалки</p>
+    </a>
+
+  </div>
+</div>
+
+       <div class="info-section">
+  <h2 class="info-title">Інтернет-магазин “UChamp”</h2>
+  <p class="info-text">
+    UChamp – магазин, що спеціалізується виключно на товарах для боксу. Ми пропонуємо широкий асортимент екіпірування, яке допоможе як початківцю, так і професійному спортсмену досягти нових висот. У нас ви знайдете:
+  </p>
+
+  <ul class="info-list">
+    <li>Боксерські рукавички, бинти та шоломи</li>
+    <li>Боксерські мішки, груші та скакалки для тренувань</li>
+    <li>Захисне спорядження та одяг для боксу</li>
+    <li>Аксесуари, необхідні для щоденних тренувань</li>
+  </ul>
+
+  <p class="info-text">
+    Ми гарантуємо високу якість за доступною ціною. Продукція представлена як відомими світовими брендами, так і перевіреними українськими виробниками, які заслужили довіру на спортивному ринку. Щоб ви не витрачали багато часу, наш консультант завжди готовий допомогти у виборі потрібного товару телефоном. Ми регулярно проводимо акції та надаємо знижки. Щоб не пропустити новини та спеціальні пропозиції – підписуйтесь на UChamp в Instagram. Також ви можете надіслати листа на нашу електронну пошту – ми завжди відкриті для ваших запитань і пропозицій.
+  </p>
+
+  <h2 class="info-title">Снаряди для залів</h2>
+ <p class="info-text">
+  Продаж оригінального боксерської екіпіровки оптом по всій Україні! Лише оригінальна амуніція для боксу. Найкращі ціни на боксерські товари в Україні представлені на сайті 
+  <a href="https://uchamp.com.ua" target="_blank"><strong>uchamp.com.ua</strong></a>. Гарантія якості на спортивні товари для боксу.
+</p> У нас Ви можете купити та дізнатися ціни багатьох брендів серед них: Everlast, TITLE, Adidas, Twins, Fairtex, Venum, Bad Boy, RDX, Leone, Fighting Sports Pro, Pro Mex, Shock Doctor, Cleto Reyes та багато інших! Якість, справжність та низькі ціни — гарантуємо!
+  </p>
+</div>
+<!-- Відгуки -->
+<div class="reviews-section">
+  <h2 class="info-title">Відгуки</h2>
+
+  <div class="review">
+    <p class="review-name">Izotov Vetal</p>
+    <div class="review-stars">
+      <img src="star.png" alt="Зірка" class="star-icon">
+      <img src="star.png" alt="Зірка" class="star-icon">
+      <img src="star.png" alt="Зірка" class="star-icon">
+      <img src="star.png" alt="Зірка" class="star-icon">
+      <img src="star.png" alt="Зірка" class="star-icon">
+    </div>
+    <p class="review-text">Дуже якісний товар. Рекомендую</p>
+    <p class="review-date">20/08/2025</p>
+  </div>
+
+  <div class="review">
+    <p class="review-name">Lub Vadim</p>
+    <div class="review-stars">
+      <img src="star.png" alt="Зірка" class="star-icon">
+      <img src="star.png" alt="Зірка" class="star-icon">
+      <img src="star.png" alt="Зірка" class="star-icon">
+      <img src="star.png" alt="Зірка" class="star-icon">
+      <img src="star.png" alt="Зірка" class="star-icon">
+    </div>
+    <p class="review-text">Недавно брав рукавиці Tittle. Прийшли швидко</p>
+    <p class="review-date">20/08/2025</p>
+  </div>
+</div>
+
+<!-- Контактний блок -->
+<div class="contact-section">
+  <div class="contact-left">
+    <div class="work-hours">Пн-Нд: з 09:00 до 21:00</div>
+
+    <div class="contact-row">
+      <img src="phone.png" alt="Телефон" class="contact-icon">
+      <a href="tel:+380966205648" class="contact-link">+38 (096) 620-56-48</a>
+    </div>
+
+    <div class="contact-row">
+      <img src="email.png" alt="Пошта" class="contact-icon">
+      <a href="mailto:uchamp@gmail.com" class="contact-link">uchamp@gmail.com</a>
+    </div>
+
+    <div class="contact-row">
+      <img src="instagram.png" alt="Instagram" class="contact-icon">
+      <a href="https://www.instagram.com/makss1m.ka?igsh=MW13NjE4bzVtdzAyeA%3D%3D&utm_source=qr" target="_blank" class="contact-link">UChamp.store</a>
+    </div>
+  </div>
+
+  <div class="contact-center">
+    <div class="logo-row">
+      <img src="logo.jpg" alt="UChamp Logo" class="logo-icon">
+      <div class="brand-text">UChamp</div>
+    </div>
+
+    <div class="bank-row">
+      <img src="visa.png" alt="VISA" class="bank-logo">
+      <img src="liqpay.png" alt="LIQPAY" class="bank-logo">
+      <img src="mastercard.png" alt="MasterCard" class="bank-logo">
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
