@@ -1,2 +1,0 @@
-# UChamp.github.io
-UChamp
