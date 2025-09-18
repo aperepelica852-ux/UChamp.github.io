@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UChamp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:,wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+<!-- Firebase SDK -->
+<!-- ✅ Firebase CDN bundle -->
+<script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBXnfNLFN9Dc1gxCNBMLXXljMzJFESaatM",
+    authDomain: "uchamp-store.firebaseapp.com",
+    projectId: "uchamp-store",
+    storageBucket: "uchamp-store.firebasestorage.app",
+    messagingSenderId: "84944968852",
+    appId: "1:84944968852:web:127ce2963304833250a881",
+    measurementId: "G-M5SN0T0JJH"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script src="js/script.js"></script>
+</head>
+<body>
+        <div class="header">
+               <div class="catalog-icon" onclick="toggleMenu()">
+  <img src="cat.png" alt="Каталог">
+</div>
+<div class="filter-menu" id="filterMenu">
+  <h3 class="filter-title">ФІЛЬТРУВАТИ ЗА ЦІНОЮ</h3>
+<div class="price-range">
+  <label for="price">Ціна: <span id="priceValue">700</span> ₴ — 
+    <input type="number" id="priceInput" min="200" max="40000" value="40000" style="width: 100px;"> ₴
+  </label>
+  <input type="range" id="price" min="200" max="40000" step="100" value="200" oninput="updatePrice(this.value)">
+</div>
+
+  <h3 class="filter-title">УНЦІЇ РУКАВИЦЬ</h3>
+  <div class="size-options">
+    <label><input type="checkbox"> 10 унцій</label>
+    <label><input type="checkbox"> 12 унцій</label>
+    <label><input type="checkbox"> 14 унцій</label>
+    <label><input type="checkbox"> 16 унцій</label>
+  </div>
+  <h3 class="filter-title">РОЗМІРИ ОДЯГУ</h3>
+  <div class="size-options">
+    <label><input type="checkbox"> XS</label>
+    <label><input type="checkbox"> S</label>
+    <label><input type="checkbox"> M</label>
+    <label><input type="checkbox"> L</label>
+    <label><input type="checkbox"> XL</label>
+  </div>
+  <button class="apply-button" onclick="applyFilter()">Застосувати фільтр</button>
+</div>
+                <div class="search-block">
+  <form id="searchForm">
+
+    <input type="text" id="searchInput" placeholder="Пошук товару...">
+    <button type="submit" class="search-button">
+      <img src="Search.png" alt="Пошук">
+    </button>
+  </form>
+</div>
+                    <div class="logo">
+                <img src="logo.jpg"><span>UChamp</span>
+            </div>
+                    <div class="icons">
+  <a href="like.html" class="icon-link">
+    <img src="Icon.png" alt="Обране">
+    <span class="like-count">0</span>
+  </a>
+  <a href="kor.html" class="icon-link">
+    <img src="Icon-1.png" alt="Кошик">
+    <span class="cart-count">0</span>
+  </a>
+</div>
+
+                    <button onclick="signInWithGoogle()" class="auth-button">
+  <img src="Icon-2.png" alt="Увійти">
+</button>
+                </div>
+                
+                
+        </div>
+
+  <header>
+    <h1>Обране</h1>
+      <main>
+    <div id="like-list"></div>
+  </main>
+
+    <a href="index.html" class="back-button">← Назад</a>
+  </header>
+
+
+  <script src="js/data.js"></script>
+  <script src="js/like.js"></script>
+</body>
+</html>

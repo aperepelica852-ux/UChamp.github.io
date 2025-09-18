@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Оплата вручну</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+ <div class="payment-info">
+  <h1>💳 Реквізити для оплати</h1>
+  <p><strong>Номер картки:</strong> 5375 4141 1234 5678</p>
+  <p><strong>Отримувач:</strong> Максим</p>
+  <p><strong>Сума:</strong> <span id="amount"></span> грн</p>
+  <p>Після переказу надішліть підтвердження у Telegram: <strong>@uchamp_support</strong></p>
+
+  <div class="loader">🔄 Оплата обробляється...</div>
+
+  <button id="confirm-button">Я оплатив</button>
+  <p id="confirmation-message" style="display:none; color: green; font-weight: bold; margin-top: 15px;">
+    ✅ Дякуємо! Ваше підтвердження прийнято.
+  </p>
+
+  <a href="kor.html" class="back-button">← Назад</a>
+</div>
+
+
+  <script>
+  const params = new URLSearchParams(window.location.search);
+  const amount = params.get("amount");
+  document.getElementById("amount").textContent = amount;
+
+  const confirmBtn = document.getElementById("confirm-button");
+  const message = document.getElementById("confirmation-message");
+
+  confirmBtn.addEventListener("click", () => {
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = "Обробка...";
+    setTimeout(() => {
+      message.style.display = "block";
+      confirmBtn.style.display = "none";
+    }, 1500);
+  });
+</script>
+
+</body>
+</html>
