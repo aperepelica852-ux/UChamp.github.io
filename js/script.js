@@ -90,4 +90,50 @@ document.addEventListener("DOMContentLoaded", () => {
   if (form) {
     form.addEventListener("submit", handleSearch);
   }
+  const searchInput = document.getElementById("searchInput");
+const suggestionsBox = document.getElementById("suggestions");
+
+const synonymMap = {
+  "рукавички": ["перчатки", "перчата", "gloves"],
+  "груша": ["мішок", "heavy bag", "боксерський мішок"],
+  "шолом": ["каска", "захист голови", "headgear"],
+  "форма": ["одяг", "екіпірування", "комплект"],
+  "сумка": ["баул", "рюкзак", "спортивна сумка"],
+  "бинти": ["обмотки", "wraps"],
+  "капа": ["mouthguard", "захист зубів"],
+  "лапи": ["pads", "мішені"],
+  "тренажер": ["рефлекс", "тренер", "машина"],
+  "боксерки": ["взуття", "черевики", "кросівки"],
+  "скакалка": ["jump rope", "трос"]
+};
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase().trim();
+  suggestionsBox.innerHTML = "";
+
+  if (!query) return;
+
+  let matches = [];
+
+  for (const key in synonymMap) {
+    if (key.includes(query) || synonymMap[key].some(s => s.includes(query))) {
+      matches.push(key, ...synonymMap[key]);
+    }
+  }
+
+  matches = [...new Set(matches)].slice(0, 5);
+
+  matches.forEach(term => {
+    const div = document.createElement("div");
+    div.className = "suggestion-item";
+    div.textContent = term;
+    div.addEventListener("click", () => {
+      searchInput.value = term;
+      suggestionsBox.innerHTML = "";
+      window.location.href = `search.html?q=${encodeURIComponent(term)}`;
+    });
+    suggestionsBox.appendChild(div);
+  });
+});
+
 });
