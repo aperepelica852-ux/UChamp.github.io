@@ -1,6 +1,7 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
+  <!DOCTYPE html>
+  <html lang="uk">
+  <head>
+   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UChamp</title>
@@ -9,11 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:,wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 <!-- Firebase SDK -->
-<!--Firebase CDN bundle -->
+<!-- Firebase CDN bundle -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
 
 <script>
+  // Ініціалізація Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyBXnfNLFN9Dc1gxCNBMLXXljMzJFESaatM",
     authDomain: "uchamp-store.firebaseapp.com",
@@ -23,9 +26,35 @@
     appId: "1:84944968852:web:127ce2963304833250a881",
     measurementId: "G-M5SN0T0JJH"
   };
+
   firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  // Авторизація при кліку
+  document.getElementById("profile-icon").addEventListener("click", () => {
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        document.getElementById("user-name").textContent = `Привіт, ${user.displayName}`;
+        document.getElementById("user-name").style.display = "inline-block";
+      })
+      .catch((error) => {
+        console.error("Помилка входу:", error);
+      });
+  });
+
+  // Відстеження стану авторизації
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      document.getElementById("user-name").textContent = `Привіт, ${user.displayName}`;
+      document.getElementById("user-name").style.display = "inline-block";
+    }
+  });
 </script>
 
+<script src="js/script.js"defer></script>
 </head>
 <body>
         <div class="header">
@@ -57,16 +86,18 @@
     <label><input type="checkbox"> XL</label>
   </div>
   <button class="apply-button" onclick="applyFilter()">Застосувати фільтр</button>
+  <a href="search.html" class="back-button">← Назад</a>
 </div>
-                <div class="search-block">
-  <form id="searchForm">
+               <div class="search-block">
+                 <form id="searchForm">
+                   <input type="text" id="searchInput" placeholder="Пошук товару..."> 
+                   <button type="submit" class="search-button"> 
+                    <img src="Search.png" alt="Пошук"> 
+                  </button> 
+                </form> 
+              </div>
 
-    <input type="text" id="searchInput" placeholder="Пошук товару...">
-    <button type="submit" class="search-button">
-      <img src="Search.png" alt="Пошук">
-    </button>
-  </form>
-</div>
+
                     <div class="logo">
                 <img src="logo.jpg"><span>UChamp</span>
             </div>
@@ -86,17 +117,17 @@
 </button>
                 </div>
                 
-               
+                
         </div>
 
-  <h1>Результати пошуку</h1>
-  
-  <div id="search-results">
-  </div>
-<a href="index.html" class="back-button">← Назад</a>
+    <h1>Результати пошуку</h1>
+    
+    <div id="search-results">
+    </div>
+  <a href="index.html" class="back-button">← Назад</a>
 
-  <script src="js/data.js"></script>
-  <script src="js/search.js"></script>
-</body>
-</html>
+    <script src="js/data.js"></script>
+    <script src="js/search.js"></script>
+  </body>
+  </html>
 
